@@ -11,9 +11,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
+<style>
+        
+        .dropdown-menu {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background-color: #343a40; 
+            color: #fff;
+            min-width: 200px;
+        }
 
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #495057; 
+        }
+
+        .submenu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #343a40; 
+            color: #fff;
+            min-width: 200px;
+        }
+
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu .dropdown:hover > .submenu {
+            display: block;
+        }
+
+       
+        .dropdown-menu, .submenu {
+            display: none;
+        }
+
+       
+        .dropdown:hover .dropdown-menu,
+        .dropdown-item:hover .submenu {
+            display: block;
+        }
+    </style>
 <body>
 
 
@@ -21,17 +65,48 @@
 
         <div id="menu-bar" class="fas fa-bars"></div>
 
-        <a href="#" class="logo"><span>THE</span>stars</a>
+        <a href="#" class="logo"><span>THIÊN</span>VĂN HỌC</a>
 
-        <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#book">book</a>
-            <a href="#packages">packages</a>
-            <a href="#services">services</a>
-            <a href="#gallery">gallery</a>
-            <a href="#review">review</a>
-            <a href="#contact">contact</a>
-        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#home">Trang chủ</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @foreach($categories as $category)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button">
+                                {{ $category->name }}
+                            </a>
+                            @if($category->children->isNotEmpty())
+                                <ul class="dropdown-menu">
+                                    @foreach($category->children as $child)
+                                        <li class="dropdown-item dropdown">
+                                            <a class="dropdown-toggle" href="#">
+                                                {{ $child->name }}
+                                            </a>
+                                            @if($child->children->isNotEmpty())
+                                                <ul class="submenu dropdown-menu">
+                                                    @foreach($child->children as $grandchild)
+                                                        <li><a class="dropdown-item" href="#">{{ $grandchild->name }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#home">Đài thiên văn</a>
+            <a class="navbar-brand" href="#home">Video</a>
+            <a class="navbar-brand" href="#home">Sách hay</a>
+
+
+        </div>
+    </nav>
+
 
         <div class="icons">
             <i class="fas h" id="search-btn"></i>
@@ -85,7 +160,7 @@
         </div>
     </section>
     <br>
-    <section class="services" style="width: 100%;padding: 40px;" id="services">
+    <!-- <section class="services" style="width: 100%;padding: 40px;" id="services">
 
         <h1 class="heading">
             <span>s</span>
@@ -125,7 +200,7 @@
                     exercitationem ut minima itaque iusto ipsum corrupti!</p>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 
@@ -176,46 +251,18 @@
             </div>
         </div>
     </section>
-
-
-
-    <section>
-        <div class="lading-container">
-
-            <div class="lading-image">
-                <video autoplay muted loop>
-                    <source src="images/vd3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="lading-content">
-                <h2>INTERIOR</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut libero magna. Suspendisse id laoreet
-                    ligula, id condimentum quam. Nulla feugiat velit vitae viverra lacinia. Nullam felis erat,
-                    condimentum gravida iaculis elementum, accumsan et risus.</p>
-                <p>Nam accumsan dignissim dolor a lacinia. Nulla mattis sem nec tincidunt blandit. Aenean eget ante id
-                    sapien porttitor tincidunt.</p>
-                <p><button type="submit">see more</button></p>
-            </div>
-
-        </div>
-    </section>
-
-
-
-
-
 
 
     <section class="gallery" style="width: 100%; padding:40px;" id="gallery" >
         <h1 class="heading">
-            <span>g</span>
-            <span>a</span>
-            <span>l</span>
-            <span>l</span>
-            <span>e</span>
-            <span>r</span>
-            <span>y</span>
+            <span>H</span>
+            <span>À</span>
+            <span>N</span>
+            <span>H</span>
+            <span>T</span>
+            <span>I</span>
+            <span>N</span>
+            <span>H</span>
         </h1>
         <div class="box-container">
 
@@ -288,20 +335,73 @@
 
 
 
+
+
+
+        <section class="services" style="width: 100%;padding: 40px;" id="services">
+
+        <h1 class="heading">
+            <span>T</span>
+            <span>H</span>
+            <span>À</span>
+            <span>N</span>
+            <span>H</span>
+            <span>V</span>
+            <span>I</span>
+            <span>Ê</span>
+            <span>N</span>
+        </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <img src="images/l.jpg" alt="" class="user-img">
+
+                </i>
+                <h3>VONG PHU LUONG </h3>
+                <p style="padding: 2px;">LEADER</p>
+                <p> <a href="https://www.facebook.com/phuluong.vong.7?mibextid=LQQJ4d">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0586908367"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+            </div>
+            <div class="box">
+                <img src="images/c.jpg" alt="" class="user-img">
+
+                </i>
+                <h3>NGUYEN VAN CANH</h3>
+                <p style="padding: 2px;">MEMBER</p>
+                <p> <a href="https://www.facebook.com/nguyen.koten.581?mibextid=JRoKGi">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0365379592"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+            </div>
+            <div class="box">
+                <img src="images/k.jpg" alt="" class="user-img">
+
+                </i>
+                <h3>NGO HO TUAN KIET</h3>
+                <p style="padding: 2px;">MEMBER</p>
+                <p> <a href="https://www.facebook.com/tuankiet2005bp?mibextid=LQQJ4d">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0379245697"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+            </div>
+           
+        </div>
+    </section>
+
+
+
+
     <section class="review" id="review">
 
         <h1 class="heading">
-            <span>L</span>
-            <span>a</span>
-            <span>t</span>
-            <span>e</span>
-            <span>s</span>
-            <span>t</span>
-            <span>r</span>
+            <span>T</span>
+            <span>I</span>
             <span>N</span>
-            <span>e</span>
-            <span>w</span>
-            <span>s</span>
+            <span>T</span>
+            <span>Ứ</span>
+            <span>C</span>
+            <span>M</span>
+            <span>Ớ</span>
+            <span>I</span>
+            <span>N</span>
+            <span>H</span>
+            <span>Ấ</span>
+            <span>T</span>
+
             
         </h1>
 
@@ -311,7 +411,7 @@
 
                 <div class="swiper-slide">
                     <div class="box">
-                        <img src="images/pic1.png" alt="">
+                        <img src="images/l.jpg" alt="">
                         <h3>john deo</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
                             fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
@@ -319,7 +419,7 @@
                       
                     </div>
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide1">
                     <div class="box">
                         <img src="images/pic2.png" alt="">
                         <h3>john deo</h3>
@@ -329,17 +429,8 @@
                       
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="box">
-                        <img src="images/pic3.png" alt="">
-                        <h3>john deo</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
-                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
-                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                      
-                    </div>
-                </div>
-                <div class="swiper-slide">
+               
+                <div class="swiper-slide1">
                     <div class="box">
                         <img src="images/pic4.png" alt="">
                         <h3>john deo</h3>

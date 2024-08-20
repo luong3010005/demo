@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class CelestialBody extends Model
 {
     use HasFactory;
+
+    // Add 'name' to the fillable property
+    protected $fillable = [
+        'name',
+        'slug',
+        'type',
+        'category_id',
+        'mass',
+        'radius',
+        'distance_from_sun',
+        'orbital_period',
+        'discovery_year',
+        'images', // Include the images field if you're storing the file path
+    ];
+    
+
+    // Optionally, you might want to specify which attributes are hidden or casts
+    // protected $hidden = [];
+    // protected $casts = [];
 }
