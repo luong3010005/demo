@@ -48,120 +48,133 @@
 
                 <div class="container mt-4">
                     <h1 class="text-2xl font-bold mb-4">Manage Celestial Bodies</h1>
-
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                     @endif
-
-
-
-
                     <!-- Form for Celestial Body -->
                     <form action="{{ route('celestial_body.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="card mb-4">
-        <div class="card-header">Thêm thiên thể</div>
-        <div class="card-body">
-            <!-- Name Field -->
-            <div class="form-group">
-                <label for="celestial_body_name">Tên</label>
-                <input type="text" id="celestial_body_name" name="name" class="form-control" required>
-                @error('name')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                        @csrf
+                        <div class="card mb-4">
+                            <div class="card-header">Thêm thiên thể</div>
+                            <div class="card-body">
+                                <!-- Name Field -->
+                                <div class="form-group">
+                                    <label for="celestial_body_name">Tên</label>
+                                    <input type="text" id="celestial_body_name" name="name" class="form-control"
+                                        required>
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Type Field -->
-            <div class="mb-4">
-                <label for="type" class="block text-gray-700">Type</label>
-                <select name="type" id="type"
-                    class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    required>
-                    <option value="">Chọn</option>
-                    <option value="Sao">Sao</option>
-                    <option value="Hành tinh">Hành Tinh</option>
-                    <option value="Vệ tinh">Vệ tinh</option>
-                </select>
-                @error('type')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <!-- Type Field -->
+                                <div class="mb-4">
+                                    <label for="type" class="block text-gray-700">Type</label>
+                                    <select name="type" id="type"
+                                        class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        required>
+                                        <option value="">Chọn</option>
+                                        <option value="Sao">Sao</option>
+                                        <option value="Hành tinh">Hành Tinh</option>
+                                        <option value="Vệ tinh">Vệ tinh</option>
+                                    </select>
+                                    @error('type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Category Field -->
-            <div class="form-group">
-                <label for="celestial_body_category_id">Category</label>
-                <select id="celestial_body_category_id" name="category_id" class="form-control" required>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-                @error('category_id')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <!-- Category Field -->
+                                <div class="form-group">
+                                    <label for="celestial_body_category_id">Category</label>
+                                    <select id="celestial_body_category_id" name="category_id" class="form-control"
+                                        required>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Mass Field -->
-            <div class="form-group">
-                <label for="mass">Khối lượng (Mass)</label>
-                <input type="number" id="mass" name="mass" class="form-control" step="any">
-                @error('mass')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <div class="form-group">
+                                    <label for="mass">Thông tin chi tiết </label>
+                                    <form …>
+                                        <input id="x" value="" type="hidden" name="content">
+                                        <trix-editor input="x"></trix-editor>
+                                    </form>
+                                    @error('mass')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Radius Field -->
-            <div class="form-group">
-                <label for="radius">Bán kính (Radius)</label>
-                <input type="number" id="radius" name="radius" class="form-control" step="any">
-                @error('radius')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <!-- Mass Field -->
+                                <div class="form-group">
+                                    <label for="mass">Khối lượng (Mass)</label>
+                                    <input type="number" id="mass" name="mass" class="form-control" step="any">
+                                    @error('mass')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Distance from Sun Field -->
-            <div class="form-group">
-                <label for="distance_from_sun">Khoảng cách từ Mặt Trời (Distance from Sun)</label>
-                <input type="number" id="distance_from_sun" name="distance_from_sun" class="form-control" step="any">
-                @error('distance_from_sun')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
 
-            <!-- Orbital Period Field -->
-            <div class="form-group">
-                <label for="orbital_period">Chu kỳ quỹ đạo (Orbital Period)</label>
-                <input type="number" id="orbital_period" name="orbital_period" class="form-control" step="any">
-                @error('orbital_period')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
 
-            <!-- Discovery Year Field -->
-            <div class="form-group">
-                <label for="discovery_year">Năm khám phá (Discovery Year)</label>
-                <input type="number" id="discovery_year" name="discovery_year" class="form-control" min="1000" max="{{ date('Y') }}">
-                @error('discovery_year')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <!-- Radius Field -->
+                                <div class="form-group">
+                                    <label for="radius">Bán kính (Radius)</label>
+                                    <input type="number" id="radius" name="radius" class="form-control" step="any">
+                                    @error('radius')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-            <!-- Images Field -->
-            <div class="form-group">
-                <label for="images">Hình ảnh (Images)</label>
-                <input type="file" id="images" name="images" class="form-control">
-                @error('images')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                                <!-- Distance from Sun Field -->
+                                <div class="form-group">
+                                    <label for="distance_from_sun">Khoảng cách từ Mặt Trời (Distance from Sun)</label>
+                                    <input type="number" id="distance_from_sun" name="distance_from_sun"
+                                        class="form-control" step="any">
+                                    @error('distance_from_sun')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-        </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Add Celestial Body</button>
-        </div>
-    </div>
-</form>
+                                <!-- Orbital Period Field -->
+                                <div class="form-group">
+                                    <label for="orbital_period">Chu kỳ quỹ đạo (Orbital Period)</label>
+                                    <input type="number" id="orbital_period" name="orbital_period" class="form-control"
+                                        step="any">
+                                    @error('orbital_period')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Discovery Year Field -->
+                                <div class="form-group">
+                                    <label for="discovery_year">Năm khám phá (Discovery Year)</label>
+                                    <input type="number" id="discovery_year" name="discovery_year" class="form-control"
+                                        min="1000" max="{{ date('Y') }}">
+                                    @error('discovery_year')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Images Field -->
+                                <div class="form-group">
+                                    <label for="images">Hình ảnh (Images)</label>
+                                    <input type="file" id="images" name="images" class="form-control">
+                                    @error('images')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Add Celestial Body</button>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
 

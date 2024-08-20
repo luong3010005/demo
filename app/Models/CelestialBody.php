@@ -12,6 +12,7 @@ class CelestialBody extends Model
     // Add 'name' to the fillable property
     protected $fillable = [
         'name',
+        'content',
         'slug',
         'type',
         'category_id',
@@ -20,7 +21,7 @@ class CelestialBody extends Model
         'distance_from_sun',
         'orbital_period',
         'discovery_year',
-        'images', // Include the images field if you're storing the file path
+        'images', 
     ];
     
 

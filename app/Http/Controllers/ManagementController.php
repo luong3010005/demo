@@ -5,14 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CelestialBody;
 use App\Models\Category;
-use App\Models\DiscoveryData;
-use App\Models\Moon;
-use App\Models\Media;
-use App\Models\Planet; 
 
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 class ManagementController extends Controller
 {
+
+
+    public function index()
+    {
+        $celestialBodies = CelestialBody::all();
+        return view('admin.management-show', compact('celestialBodies'));
+    }
+
+
+
+
+
+
     public function create()
     {
         $categories = Category::all();
@@ -28,29 +37,88 @@ class ManagementController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'content' => 'required|string',
             'mass' => 'nullable|numeric',
             'radius' => 'nullable|numeric',
             'distance_from_sun' => 'nullable|numeric',
             'orbital_period' => 'nullable|numeric',
             'discovery_year' => 'nullable|integer|digits:4',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Handle image upload
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
-    
-        // Generate slug based on the celestial body's name
+
         $validated['slug'] = Str::slug($validated['name']);
-    
-        // Handle image upload if it exists
+
         if ($request->hasFile('images')) {
-            // Store the image in the 'public/images' directory
             $imagePath = $request->file('images')->store('images', 'public');
             $validated['images'] = $imagePath;
         }
-    
-        // Create the celestial body
+
         CelestialBody::create($validated);
-    
+
         return redirect()->back()->with('success', 'Celestial Body added successfully!');
     }
-    
+
+
+
+    public function edit(CelestialBody $celestialBody)
+    {
+        $categories = Category::all();
+        return view('admin.management-edit', compact('celestialBody', 'categories'));
+    }
+
+
+    public function update(Request $request, CelestialBody $celestialBody)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'mass' => 'nullable|numeric',
+            'radius' => 'nullable|numeric',
+            'distance_from_sun' => 'nullable|numeric',
+            'orbital_period' => 'nullable|numeric',
+            'discovery_year' => 'nullable|integer|digits:4',
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
+
+        if ($request->hasFile('images')) {
+            if ($celestialBody->images) {
+                \Storage::disk('public')->delete($celestialBody->images);
+            }
+
+            $imagePath = $request->file('images')->store('images', 'public');
+            $validated['images'] = $imagePath;
+        }
+
+        $celestialBody->update($validated);
+
+        return redirect()->route('management-show')->with('success', 'Celestial Body updated successfully!');
+    }
+
+
+
+
+    public function destroy(CelestialBody $celestialBody)
+    {
+        // Delete the image file if it exists
+        if ($celestialBody->images) {
+            \Storage::disk('public')->delete($celestialBody->images);
+        }
+
+        $celestialBody->delete();
+
+        return redirect()->route('management-show')->with('success', 'Celestial Body deleted successfully!');
+    }
+
+
+
+
+
+
+
+
+
 }
 

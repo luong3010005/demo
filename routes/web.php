@@ -1,17 +1,20 @@
 <?php
 
-use App\Http\Controllers\AuthController; // Sử dụng đúng namespace cho controller
-use App\Http\Controllers\AdminController; // Sử dụng đúng namespace cho controller
+use App\Http\Controllers\AuthController; 
+use App\Http\Controllers\AdminController; 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ManagementController;
-
-
-
-Route::get('/login', [AuthController::class, 'index']); // Sử dụng tên controller đúng
-Route::get('/', [AuthController::class, 'index1']); // Sử dụng tên controller đúng
-
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VideoController;
+
 use Illuminate\Support\Facades\Route;
+
+
+
+Route::get('/login', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index1']); 
+
 
 
 Route::get('/dashboard', function () {
@@ -33,21 +36,33 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
-// web.php
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-// Display the form for editing a category
 Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-
-// Update the category in storage
 Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
 
 Route::get('/management/create', [ManagementController::class, 'create'])->name('management.create');
 Route::post('/management/store', [ManagementController::class, 'store'])->name('management.store');
 Route::post('/celestial-body', [ManagementController::class, 'storeCelestialBody'])->name('celestial_body.store');
-Route::post('/discovery-data', [ManagementController::class, 'storeDiscoveryData'])->name('discovery_data.store');
-Route::post('/moon', [ManagementController::class, 'storeMoon'])->name('moon.store');
-Route::post('/media', [ManagementController::class, 'storeMedia'])->name('media.store');
-Route::post('/management/planet', [ManagementController::class, 'storePlanet'])->name('storePlanet');
+Route::get('/celestial-bodies', [ManagementController::class, 'index'])->name('management-show');
+Route::get('edit/{celestialBody}', [ManagementController::class, 'edit'])->name('edit.celestialBody');
+Route::put('update/{celestialBody}', [ManagementController::class, 'update'])->name('update.celestialBody');
+Route::delete('destroy/{celestialBody}', [ManagementController::class, 'destroy'])->name('destroy.celestialBody');
+
+
+Route::get('news/create', [NewsController::class, 'createnews'])->name('news.create');
+Route::post('/news/store', [NewsController::class, 'storeNews'])->name('news.store');
+Route::get('/news/show', [NewsController::class, 'index'])->name('news.index');
+Route::get('news/edit/{id}', [NewsController::class, 'newedit'])->name('news.edit');
+Route::put('news/update/{id}', [NewsController::class, 'newupdate'])->name('news.update');
+Route::delete('news/destroy/{id}', [NewsController::class, 'newdestroy'])->name('news.destroy');
+
+Route::get('videos/create', [VideoController::class, 'createvideo'])->name('videos.create');
+Route::post('videos', [VideoController::class, 'storevideo'])->name('videos.store');
+Route::get('videos', [VideoController::class, 'index'])->name('videos.index');
+Route::get('videos/{id}', [VideoController::class, 'show'])->name('videos.show');
+Route::get('videos/{id}/edit', [VideoController::class, 'edit'])->name('videos.edit');
+Route::put('videos/{id}', [VideoController::class, 'update'])->name('videos.update');
+Route::delete('videos/{id}', [VideoController::class, 'destroy'])->name('videos.destroy');
