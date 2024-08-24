@@ -318,9 +318,9 @@
                         <li class="menu-title">Menu</li>
 
                         <li>
-                            <a href="javascript: void(0);" class="waves-effect">
+                            <a href="{{route('admin.index')}}" class="waves-effect">
                                 <i class="bx bx-home-circle"></i><span
-                                    class="badge badge-pill badge-info float-right">03</span>
+                                    class="badge badge-pill badge-info float-right"></span>
                                 <span>Trang chủ</span>
                             </a>
                             <!-- <ul class="sub-menu" aria-expanded="false">
@@ -349,6 +349,7 @@
 
 
 
+                        <li class="menu-title">Tin tức</li>
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -361,15 +362,68 @@
                             </ul>
                         </li>
 
+                        <li class="menu-title">Video thiên văn</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-file"></i>
+                                <span>Video</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('videos.create')}}">Thêm video </a></li>
+                                <li><a href="{{route('videos.index')}}">Danh sách video</a></li>
 
 
-                        <li class="menu-title">danhmucj</li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Sách hay</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-file"></i>
+                                <span>Sách</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('videos.create')}}">Thêm video </a></li>
+                                <li><a href="{{route('videos.index')}}">Danh sách video</a></li>
 
 
+                            </ul>
+                        </li>
+
+
+                        <li class="menu-title">Danh mục</li>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-file"></i>
                                 <span>Quản lý danh mục</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('categories.create')}}">Thêm danh mục</a></li>
+                                <li><a href="{{route('categories.index')}}">Danh sách danh mục</a></li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Đơn hàng</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-file"></i>
+                                <span>Quản lý người dùng</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('categories.create')}}">Thêm danh mục</a></li>
+                                <li><a href="{{route('categories.index')}}">Danh sách danh mục</a></li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">Tài khoản</li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-file"></i>
+                                <span>Quản lý người dùng</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{route('categories.create')}}">Thêm danh mục</a></li>

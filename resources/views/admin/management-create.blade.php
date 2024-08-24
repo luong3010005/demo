@@ -71,19 +71,21 @@
 
                                 <!-- Type Field -->
                                 <div class="mb-4">
-                                    <label for="type" class="block text-gray-700">Type</label>
-                                    <select name="type" id="type"
-                                        class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        required>
-                                        <option value="">Chọn</option>
-                                        <option value="Sao">Sao</option>
-                                        <option value="Hành tinh">Hành Tinh</option>
-                                        <option value="Vệ tinh">Vệ tinh</option>
-                                    </select>
-                                    @error('type')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+    <label for="type" class="block text-gray-700">Type</label>
+    <select name="type" id="type"
+        class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        required>
+        <option value="">Chọn</option>
+        <option value="Sao">Sao</option>
+        <option value="Hành tinh">Hành Tinh</option>
+        <option value="Vệ tinh">Vệ tinh</option>
+        <option value="home_vutru">Home</option>
+    </select>
+    @error('type')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
 
                                 <!-- Category Field -->
                                 <div class="form-group">

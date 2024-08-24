@@ -98,4 +98,15 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
     }
+    public function index1($slug)
+    {
+        // Fetch the category by slug
+        $category = Category::where('slug', $slug)
+            ->with('celestialBodies') // Eager load celestial bodies
+            ->firstOrFail(); // Fail if the category doesn't exist
+    
+        return view('fonend.index', compact('category'));
+    }
+    
+
 }

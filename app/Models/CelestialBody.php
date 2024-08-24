@@ -24,7 +24,11 @@ class CelestialBody extends Model
         'images', 
     ];
     
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
     // Optionally, you might want to specify which attributes are hidden or casts
     // protected $hidden = [];
     // protected $casts = [];

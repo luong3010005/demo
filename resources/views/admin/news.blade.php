@@ -61,8 +61,8 @@
                         </div>
                         <div class="form-group">
                             <label for="long_description">Long Description:</label>
-                            <form …>
-                                        <input id="x" value="" type="hidden" name="content">
+                           <form …>
+                                        <input id="x" value="" type="hidden" name="long_description">
                                         <trix-editor input="x"></trix-editor>
                                     </form>
                         </div>

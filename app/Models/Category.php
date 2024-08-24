@@ -21,5 +21,9 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-
+    public function celestialBodies()
+    {
+        return $this->hasMany(CelestialBody::class);
+    }
+    
 }

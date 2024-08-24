@@ -73,6 +73,7 @@ class ManagementController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'category_id' => 'required|exists:categories,id',
+            'content' => 'required|string',
             'mass' => 'nullable|numeric',
             'radius' => 'nullable|numeric',
             'distance_from_sun' => 'nullable|numeric',

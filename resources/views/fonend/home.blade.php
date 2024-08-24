@@ -16,48 +16,46 @@
 
 </head>
 <style>
-        
-        .dropdown-menu {
-            position: absolute;
-            left: 0;
-            top: 100%;
-            background-color: #343a40; 
-            color: #fff;
-            min-width: 200px;
-        }
+    .dropdown-menu {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background-color: #343a40;
+        color: #fff;
+        min-width: 200px;
+    }
 
-        .dropdown-item:hover, .dropdown-item:focus {
-            background-color: #495057; 
-        }
+    .dropdown-item:hover, .dropdown-item:focus {
+        background-color: #495057;
+    }
 
-        .submenu {
-            position: absolute;
-            top: 0;
-            left: 100%;
-            background-color: #343a40; 
-            color: #fff;
-            min-width: 200px;
-        }
+    .submenu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #343a40;
+        color: #fff;
+        min-width: 200px;
+        display: none; /* Ẩn đi submenu cho đến khi hover */
+    }
 
-        .dropdown:hover > .dropdown-menu {
-            display: block;
-        }
+    .dropdown-menu {
+        display: none;
+    }
 
-        .dropdown-menu .dropdown:hover > .submenu {
-            display: block;
-        }
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
 
-       
-        .dropdown-menu, .submenu {
-            display: none;
-        }
+    .dropdown-item:hover > .submenu {
+        display: block;
+    }
 
-       
-        .dropdown:hover .dropdown-menu,
-        .dropdown-item:hover .submenu {
-            display: block;
-        }
-    </style>
+    .dropdown-item:hover > .submenu .submenu {
+        display: none; /* Chỉ hiển thị khi hover vào submenu tương ứng */
+    }
+</style>
+
 <body>
 
 
@@ -65,32 +63,32 @@
 
         <div id="menu-bar" class="fas fa-bars"></div>
 
-        <a href="#" class="logo"><span>THIÊN</span>VĂN HỌC</a>
+        <a href="" class="logo navbar-brand"><span>THIÊN</span>VĂN HỌC</a>
 
         <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
             <a class="navbar-brand" href="#home">Trang chủ</a>
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @foreach($categories as $category)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button">
-                                {{ $category->name }}
+            <ul class="nav">
+    @foreach($categories as $category)
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{{ route('category.index1', ['slug' => $category->slug]) }}" id="navbarDropdown" role="button">
+                {{ $category->name }}
+            </a>
+            @if($category->children->isNotEmpty())
+                <ul class="dropdown-menu">
+                    @foreach($category->children as $child)
+                        <li class="dropdown-item dropdown">
+                            <a class="dropdown-toggle" href="{{ route('category.index1', ['slug' => $child->slug]) }}">
+                                {{ $child->name }}
                             </a>
-                            @if($category->children->isNotEmpty())
-                                <ul class="dropdown-menu">
-                                    @foreach($category->children as $child)
-                                        <li class="dropdown-item dropdown">
-                                            <a class="dropdown-toggle" href="#">
-                                                {{ $child->name }}
+                            @if($child->children->isNotEmpty())
+                                <ul class="submenu dropdown-menu">
+                                    @foreach($child->children as $grandchild)
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('category.index1', ['slug' => $grandchild->slug]) }}">
+                                                {{ $grandchild->name }}
                                             </a>
-                                            @if($child->children->isNotEmpty())
-                                                <ul class="submenu dropdown-menu">
-                                                    @foreach($child->children as $grandchild)
-                                                        <li><a class="dropdown-item" href="#">{{ $grandchild->name }}</a></li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
                                         </li>
                                     @endforeach
                                 </ul>
@@ -98,10 +96,18 @@
                         </li>
                     @endforeach
                 </ul>
+            @endif
+        </li>
+    @endforeach
+</ul>
+
+
             </div>
-            <a class="navbar-brand" href="#home">Đài thiên văn</a>
-            <a class="navbar-brand" href="#home">Video</a>
-            <a class="navbar-brand" href="#home">Sách hay</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Đài thiên văn</a>
+                <a class="navbar-brand" href="{{ route('videos') }}">Video</a>
+                <a class="navbar-brand" href="{{route('products.index')}}">Sách hay</a>
+                <a class="navbar-brand" href="{{ route('news.index12') }}">Tin tức</a>
+
 
 
         </div>
@@ -109,9 +115,17 @@
 
 
         <div class="icons">
-            <i class="fas h" id="search-btn"></i>
-            <i class="fas fa-user" id="login-btn"></i>
-        </div>
+        <i class="" id="login-btn"></i>
+        <i class="" id="search-btn"></i>
+    <a href="{{ route('cart.index') }}"><i class="fas fa-shopping-cart"></i></a>
+
+    @auth
+        <a href="{{ route('login') }}"><i class="" id="user-email">Xin chào:{{ Auth::user()->name }}</i></a>
+    @else
+        <a href="{{ route('register') }}"><i class="" id="register-btn">Đăng ký</i></a>
+        <a href="{{ route('login') }}"><i class="" id="login-btn">Đăng nhập</i></a>
+    @endauth
+</div>
 
       
 
@@ -134,6 +148,7 @@
         </form>
 
     </div>
+
 
 
     <section class="home" id="home">
@@ -160,7 +175,7 @@
         </div>
     </section>
     <br>
-    <!-- <section class="services" style="width: 100%;padding: 40px;" id="services">
+    <section class="services" style="width: 100%;padding: 40px;" id="services">
 
         <h1 class="heading">
             <span>s</span>
@@ -174,86 +189,66 @@
         </h1>
 
         <div class="box-container">
-
-            <div class="box">
-                <i class="fas fa-hotel"></i>
-                <h3>affordable hotels</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore commodi earum, quis voluptate
-                    exercitationem ut minima itaque iusto ipsum corrupti!</p>
-            </div>
-            <div class="box">
-                <i class="fas fa-utensils"></i>
-                <h3>food and drinks</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore commodi earum, quis voluptate
-                    exercitationem ut minima itaque iusto ipsum corrupti!</p>
-            </div>
-            <div class="box">
-                <i class="fas fa-bullhorn"></i>
-                <h3>safty guide</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore commodi earum, quis voluptate
-                    exercitationem ut minima itaque iusto ipsum corrupti!</p>
-            </div>
-            <div class="box">
-                <i class="fas fa-globe-asia"></i>
-                <h3>around the world</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore commodi earum, quis voluptate
-                    exercitationem ut minima itaque iusto ipsum corrupti!</p>
-            </div>
-        </div>
-    </section> -->
-
-
-
-    <section>
-        <div class="lading-container">
-
-            <div class="lading-image">
-                <video autoplay muted loop>
-                    <source src="images/vd3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="lading-content">
-                <h2>INTERIOR</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut libero magna. Suspendisse id laoreet
-                    ligula, id condimentum quam. Nulla feugiat velit vitae viverra lacinia. Nullam felis erat,
-                    condimentum gravida iaculis elementum, accumsan et risus.</p>
-                <p>Nam accumsan dignissim dolor a lacinia. Nulla mattis sem nec tincidunt blandit. Aenean eget ante id
-                    sapien porttitor tincidunt.</p>
-                <p><button type="submit">see more</button></p>
-            </div>
+            @foreach ($homeVutruItems as $item)
+                <div class="box">
+                    <i class=""> @if ($item->images)
+                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->name }}" class=""
+                            style="width: 35px;">
+                    @endif                     </i>
+                    <h3>affordable hotels</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore commodi earum, quis voluptate
+                        exercitationem ut minima itaque iusto ipsum corrupti!</p>
+                </div>
+            @endforeach
 
         </div>
     </section>
 
+    @foreach ($CelestialBody as $item)
 
+        <section>
 
+            <div class="lading-container">
 
+                <div class="lading-image">
+                    @if ($item->images)
+                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->name }}" class="card-img-top">
+                    @endif
+                </div>
+                <div class="lading-content">
+                    <h2>{{ $item->name }}</h2>
+                    <p>{!! Str::limit($item->content, 900) !!}</p>
+                    <a href="{{ route('celestial-body.show', $item->slug) }}" class="btn btn-primary">See More</a>
+                </div>
 
-    <section>
-        <div class="lading-container">
-
-
-            <div class="lading-content">
-                <h2>INTERIOR</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut libero magna. Suspendisse id laoreet
-                    ligula, id condimentum quam. Nulla feugiat velit vitae viverra lacinia. Nullam felis erat,
-                    condimentum gravida iaculis elementum, accumsan et risus.</p>
-                <p>Nam accumsan dignissim dolor a lacinia. Nulla mattis sem nec tincidunt blandit. Aenean eget ante id
-                    sapien porttitor tincidunt.</p>
-                <p><button type="submit">see more</button></p>
             </div>
-            <div class="lading-image">
-                <video autoplay muted loop>
-                    <source src="images/vd3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        </section>
+    @endforeach
+
+
+
+    @foreach ($CelestialBody1 as $item)
+
+        <section>
+
+            <div class="lading-container">
+
+
+                <div class="lading-content">
+                    <h2>{{ $item->name }}</h2>
+                    <p>{!! Str::limit($item->content, 900) !!}</p>
+                    <a href="{{ route('celestial-body.show', $item->slug) }}" class="btn btn-primary">See More</a>
+                </div>
+                <div class="lading-image">
+                    @if ($item->images)
+                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->name }}" class="card-img-top">
+                    @endif
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endforeach
 
-
-    <section class="gallery" style="width: 100%; padding:40px;" id="gallery" >
+    <section class="gallery" style="width: 100%; padding:40px;" id="gallery">
         <h1 class="heading">
             <span>H</span>
             <span>À</span>
@@ -265,80 +260,29 @@
             <span>H</span>
         </h1>
         <div class="box-container">
+        @foreach ($CelestialBodyimg as $item)
 
-            <div class="box">
-                <img src="images/sao-kim.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
+                <div class="box">
+                    @if ($item->images)
+                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->name }}">
+                    @endif
+                    <div class="content">
+                        <h3>{{ $item->name }}</h3>
+                        <p>{!! Str::limit($item->content, 300) !!}</p>
+                        <a href="{{ route('celestial-body.show', $item->slug) }}" class="btn btn-primary">See More</a>
+                    </div> 
                 </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-moc.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-moc.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-kim.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-moc.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-kim.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-moc.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/sao-moc.jpg" alt="">
-                <div class="content">
-                    <h3>amazing places</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, tenetur.</p>
-                    <a href="#" class="btn">see more</a>
-                </div>
-            </div>
+
+                 
+            @endforeach
+
+
+
+
         </div>
     </section>
 
-
-
-
-
-
-        <section class="services" style="width: 100%;padding: 40px;" id="services">
+    <section class="services" style="width: 100%;padding: 40px;" id="services">
 
         <h1 class="heading">
             <span>T</span>
@@ -360,7 +304,10 @@
                 </i>
                 <h3>VONG PHU LUONG </h3>
                 <p style="padding: 2px;">LEADER</p>
-                <p> <a href="https://www.facebook.com/phuluong.vong.7?mibextid=LQQJ4d">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0586908367"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+                <p> <a href="https://www.facebook.com/phuluong.vong.7?mibextid=LQQJ4d"> </p> <i class="fab fa-facebook"
+                    style="color: #74C0FC;"></i></a> <a href="tel:+0586908367"> <i class="fas fa-phone-square-alt"
+                        style="color: #B197FC;"></i></a>
+                < </p>
             </div>
             <div class="box">
                 <img src="images/c.jpg" alt="" class="user-img">
@@ -368,7 +315,10 @@
                 </i>
                 <h3>NGUYEN VAN CANH</h3>
                 <p style="padding: 2px;">MEMBER</p>
-                <p> <a href="https://www.facebook.com/nguyen.koten.581?mibextid=JRoKGi">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0365379592"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+                <p> <a href="https://www.facebook.com/nguyen.koten.581?mibextid=JRoKGi"> </p> <i class="fab fa-facebook"
+                    style="color: #74C0FC;"></i></a> <a href="tel:+0365379592"> <i class="fas fa-phone-square-alt"
+                        style="color: #B197FC;"></i></a>
+                < </p>
             </div>
             <div class="box">
                 <img src="images/k.jpg" alt="" class="user-img">
@@ -376,9 +326,12 @@
                 </i>
                 <h3>NGO HO TUAN KIET</h3>
                 <p style="padding: 2px;">MEMBER</p>
-                <p> <a href="https://www.facebook.com/tuankiet2005bp?mibextid=LQQJ4d">  </p>  <i class="fab fa-facebook" style="color: #74C0FC;"></i></a> <a href="tel:+0379245697"> <i class="fas fa-phone-square-alt" style="color: #B197FC;"></i></a>< </p>
+                <p> <a href="https://www.facebook.com/tuankiet2005bp?mibextid=LQQJ4d"> </p> <i class="fab fa-facebook"
+                    style="color: #74C0FC;"></i></a> <a href="tel:+0379245697"> <i class="fas fa-phone-square-alt"
+                        style="color: #B197FC;"></i></a>
+                < </p>
             </div>
-           
+
         </div>
     </section>
 
@@ -402,44 +355,29 @@
             <span>Ấ</span>
             <span>T</span>
 
-            
+
         </h1>
 
         <div class="swiper-container review-slider">
 
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide">
-                    <div class="box">
-                        <img src="images/l.jpg" alt="">
-                        <h3>john deo</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
-                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
-                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                      
+                @foreach ($news as $item)
+                    <div class="swiper-slide">
+                        <div class="box">
+                            @if ($item->images)
+                                <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->name }}"
+                                    class="mb-5 w-full h-auto rounded">
+                            @endif
+                            <h3>{{ $item->name }}</h3>
+                            <p class="mt-2">{{ Str::limit($item->short_description, 100) }}</p>
+                            <a href="{{ route('news.show', $item->slug) }}" class="btn btn-primary mt-2">See More</a>
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide1">
-                    <div class="box">
-                        <img src="images/pic2.png" alt="">
-                        <h3>john deo</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
-                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
-                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                      
-                    </div>
-                </div>
-               
-                <div class="swiper-slide1">
-                    <div class="box">
-                        <img src="images/pic4.png" alt="">
-                        <h3>john deo</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
-                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
-                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                      
-                    </div>
-                </div>
+                @endforeach
+
+
+
 
             </div>
 
@@ -449,10 +387,8 @@
 
 
 
-    <!-- contact section ends -->
 
-    <!-- brand section  -->
-<br>
+    <br>
 
 
 
