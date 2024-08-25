@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/celestial-thethe/{slug}', [AuthController::class, 'show1'])->name('celestialBody.show');
 
 
-Route::get('/login', [AuthController::class, 'index']);
+// Route::get('/login', [AuthController::class, 'index']);
 Route::get('/', [AuthController::class, 'index1'])->name('home'); 
 Route::get('news/{slug}', [AuthController::class, 'show'])->name('news.show');
 Route::get('celestial-body/{slug}', [AuthController::class, 'showCelestialBody'])->name('celestial-body.show');
@@ -100,9 +101,21 @@ Route::get('products/{product}', [ProductController::class, 'show'])->name('prod
 Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit'); // Show form to edit a product
 Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update'); // Update a product
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy'); // Delete a product
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 });
 
 
+// routes/web.php
+
+use App\Http\Controllers\Admin\OrderController;
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+});
 
 
 

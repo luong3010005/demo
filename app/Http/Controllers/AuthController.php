@@ -96,36 +96,18 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
             // Check if user has admin role
-            if ($user->hasRole('admin')) {
+            if (Auth::user()->hasRole('admin')) {
                 return redirect()->intended('admin');
-            } else {
-                // If user is not admin, log them out and show error
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Tài khoản không có quyền truy cập admin.',
-                ]);
             }
+
+            // Redirect non-admin users to home or other page
+            return redirect()->intended('/');
         }
 
-        // If authentication fails
         return back()->withErrors([
-            'email' => 'Tài khoản hoặc mật khẩu không chính xác.',
+            'email' => 'The provided credentials do not match our records.',
         ]);
-    }
-
-    // Nếu bạn cần override hàm này để tùy chỉnh redirect sau khi đăng nhập
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->hasRole('admin')) {
-            return redirect()->route('admin.index');
-        }
-
-        auth()->logout();
-        return redirect()->route('login1')->withErrors(['error' => 'Bạn không có quyền truy cập trang quản trị.']);
     }
 }
