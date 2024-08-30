@@ -33,11 +33,12 @@ class AuthController extends Controller
             ->get();
 
         $CelestialBody = CelestialBody::latest()
+        ->skip(5) 
             ->take(1)
             ->get();
 
         $CelestialBody1 = CelestialBody::latest()
-            ->skip(1) // Skip the first record
+            ->skip(6) 
             ->take(1)
             ->get();
             $CelestialBodyimg = CelestialBody::take(9)->get();

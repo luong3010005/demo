@@ -2,25 +2,24 @@
     @include('fonend.header')
 </div>
 
-
 <section class="py-5">
     <div class="container">
-    <div class="breadcrumb">
-    <a href="{{ route('home') }}">Trang chủ</a> »
-    <a href="{{ url()->previous() }}">Quay lại</a> »
-    <span>{{ $body->name }}</span>
-</div>
+        <div class="breadcrumb">
+            <a href="{{ route('home') }}">Trang chủ</a> »
+            <a href="{{ url()->previous() }}">Quay lại</a> »
+            <span>{{ $body->name }}</span>
+        </div>
 
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12">
                 <!-- Image Section -->
-              <p>  <div class="text-center">
+                <div class="text-center">
                     @if($body->images)
-                        <img src="{{ asset('storage/' . $body->images) }}" alt="{{ $body->name }}" class="" style="width: 100%;">
+                        <img src="{{ asset('storage/' . $body->images) }}" alt="{{ $body->name }}" class="img-fluid img-full" style="width: 100%;">
                     @else
                         <img src="{{ asset('storage/default-image.jpg') }}" alt="No Image Available" class="img-fluid img-full">
                     @endif
-                </div></p>
+                </div>
                 
                 <!-- Title and Content -->
                 <div class="text-center mb-5">
@@ -29,15 +28,29 @@
                 </div>
 
                 <!-- Details Section -->
+                @if($body->type || $body->mass || $body->radius || $body->distance_from_sun || $body->orbital_period || $body->discovery_year)
                 <div class="details-card">
                     <h2>Details</h2>
+                    @isset($body->type)
                     <div class="detail-item"><strong>Type:</strong> <span>{{ $body->type }}</span></div>
+                    @endisset
+                    @isset($body->mass)
                     <div class="detail-item"><strong>Mass:</strong> <span>{{ $body->mass }} kg</span></div>
+                    @endisset
+                    @isset($body->radius)
                     <div class="detail-item"><strong>Radius:</strong> <span>{{ $body->radius }} km</span></div>
+                    @endisset
+                    @isset($body->distance_from_sun)
                     <div class="detail-item"><strong>Distance from Sun:</strong> <span>{{ $body->distance_from_sun }} AU</span></div>
+                    @endisset
+                    @isset($body->orbital_period)
                     <div class="detail-item"><strong>Orbital Period:</strong> <span>{{ $body->orbital_period }} days</span></div>
+                    @endisset
+                    @isset($body->discovery_year)
                     <div class="detail-item"><strong>Discovery Year:</strong> <span>{{ $body->discovery_year }}</span></div>
+                    @endisset
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -49,22 +62,22 @@
 
 <style>
     .breadcrumb {
-    font-size: 14px;
-    color: #555;
-}
+        font-size: 14px;
+        color: #555;
+    }
 
-.breadcrumb a {
-    color: #0073e6;
-    text-decoration: none;
-}
+    .breadcrumb a {
+        color: #0073e6;
+        text-decoration: none;
+    }
 
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
 
-.breadcrumb span {
-    color: #333;
-}
+    .breadcrumb span {
+        color: #333;
+    }
 
     body {
         background: #eee;

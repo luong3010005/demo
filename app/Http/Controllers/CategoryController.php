@@ -87,6 +87,9 @@ class CategoryController extends Controller
         return view('admin.category-show', compact('category', 'categories'));
     }
 
+
+
+    
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
@@ -98,15 +101,35 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.create')->with('success', 'Category deleted successfully.');
     }
-    public function index1($slug)
-    {
-        // Fetch the category by slug
-        $category = Category::where('slug', $slug)
-            ->with('celestialBodies') // Eager load celestial bodies
-            ->firstOrFail(); // Fail if the category doesn't exist
-    
-        return view('fonend.index', compact('category'));
+//     public function index1($slug)
+// {
+//     $category = Category::where('slug', $slug)
+//         ->with(['children.celestialBodies']) 
+//         ->firstOrFail();
+
+//     if ($slug === 'cac-vi-sao') {
+//         $category->children = $category->children->random(min(3, $category->children->count()));
+//     }
+
+//     return view('fonend.index', compact('category'));
+// }
+
+public function index1($slug)
+{
+    $category = Category::where('slug', $slug)
+        ->with(['children.celestialBodies']) 
+        ->firstOrFail();
+
+    if ($slug === 'cac-vi-sao') {
+        $desiredChildrenSlugs = ['sao-hoa', 'sao-kim', 'sao-moc'];
+
+        $category->children = $category->children->filter(function ($child) use ($desiredChildrenSlugs) {
+            return in_array($child->slug, $desiredChildrenSlugs);
+        });
     }
-    
+
+    return view('fonend.index', compact('category'));
+}
+
 
 }

@@ -10,6 +10,8 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MapController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,7 @@ Route::get('/', [AuthController::class, 'index1'])->name('home');
 Route::get('news/{slug}', [AuthController::class, 'show'])->name('news.show');
 Route::get('celestial-body/{slug}', [AuthController::class, 'showCelestialBody'])->name('celestial-body.show');
 
+Route::get('/category/{slug}', [CategoryController::class, 'index1'])->name('category.index1');
 
 
 Route::get('/dashboard', function () {
@@ -79,7 +82,6 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-Route::get('/category/{slug}', [CategoryController::class, 'index1'])->name('category.index1');
 
 
 
@@ -115,8 +117,27 @@ use App\Http\Controllers\Admin\OrderController;
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('orders', [OrderController::class, 'index'])->name('admin.orders.index');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+
+    Route::get('maps', [MapController::class, 'index'])->name('maps.index');
+
+    // Route for showing the form to create a new map
+    Route::get('maps/create', [MapController::class, 'create'])->name('maps.create');
+    
+    // Route for storing a new map
+    Route::post('maps', [MapController::class, 'store'])->name('maps.store');
+    
+    // Route for showing the form to edit an existing map
+    Route::get('maps/{map}/edit', [MapController::class, 'edit'])->name('maps.edit');
+    
+    // Route for updating an existing map
+    Route::put('maps/{map}', [MapController::class, 'update'])->name('maps.update');
+    
+    // Route for deleting an existing map
+    Route::delete('maps/{map}', [MapController::class, 'destroy'])->name('maps.destroy');
+
 });
 
+Route::get('map', [MapController::class, 'index1']);
 
 
 

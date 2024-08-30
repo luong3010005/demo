@@ -409,11 +409,10 @@
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-file"></i>
-                                <span>Quản lý người dùng</span>
+                                <span>Quản lý đơn hàng</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{route('categories.create')}}">Thêm danh mục</a></li>
-                                <li><a href="{{route('categories.index')}}">Danh sách danh mục</a></li>
+                                <li><a href="{{route('admin.orders.index')}}">Danh sách Đơn hàng</a></li>
 
 
                             </ul>
@@ -426,8 +425,7 @@
                                 <span>Quản lý người dùng</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{route('categories.create')}}">Thêm danh mục</a></li>
-                                <li><a href="{{route('categories.index')}}">Danh sách danh mục</a></li>
+                                <li><a href="{{route('users.index')}}">Danh sách Người dùng</a></li>
 
 
                             </ul>

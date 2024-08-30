@@ -19,7 +19,21 @@ class ManagementController extends Controller
 
 
 
-
+    // public function showCategoriesWithProducts()
+    // {
+    //     // Retrieve celestial bodies that are of type 'Hành tinh'
+    //     $planet = CelestialBody::where('type', 'Hành tinh')->get();
+    
+    //     // Filter categories based on specific subcategory names
+    //     $categories = Category::whereIn('name', ['type',  'Sao kim ', 'Sao hỏa', 'long'])->get();
+    
+      
+    //     $products = CelestialBody::whereIn('category_id', $categories->pluck('id'))->get();
+    
+    //     // Return the view with the celestial bodies, categories, and products
+    //     return view('danhmuc', compact('planet', 'categories', 'products'));
+    // }
+    
 
 
     public function create()
@@ -65,6 +79,8 @@ class ManagementController extends Controller
         $categories = Category::all();
         return view('admin.management-edit', compact('celestialBody', 'categories'));
     }
+
+   
 
 
     public function update(Request $request, CelestialBody $celestialBody)

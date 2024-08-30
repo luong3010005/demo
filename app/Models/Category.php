@@ -26,4 +26,7 @@ class Category extends Model
         return $this->hasMany(CelestialBody::class);
     }
     
+
+
+    
 }
