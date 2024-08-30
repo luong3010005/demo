@@ -121,7 +121,7 @@ public function index1($slug)
         ->firstOrFail();
 
     if ($slug === 'cac-vi-sao') {
-        $desiredChildrenSlugs = ['sao-hoa', 'sao-kim', 'sao-moc'];
+        $desiredChildrenSlugs = ['sao-hoa', 'sao-kim', 'sao-choi'];
 
         $category->children = $category->children->filter(function ($child) use ($desiredChildrenSlugs) {
             return in_array($child->slug, $desiredChildrenSlugs);

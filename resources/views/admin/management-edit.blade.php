@@ -40,10 +40,13 @@
                         <div class="mb-4">
                             <label for="type" class="block text-gray-700">Type</label>
                             <select name="type" id="type"
-                                class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-                                <option value="sao" {{ $celestialBody->type === 'sao' ? 'selected' : '' }}>Sao</option>
-                                <option value="hanh_tinh" {{ $celestialBody->type === 'hanh_tinh' ? 'selected' : '' }}>Hành Tinh</option>
-                            </select>
+        class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+    <option value="sao" {{ $celestialBody->type === 'sao' ? 'selected' : '' }}>Sao</option>
+    <option value="hanh_tinh" {{ $celestialBody->type === 'hanh_tinh' ? 'selected' : '' }}>Hành Tinh</option>
+    <option value="ve_tinh" {{ $celestialBody->type === 've_tinh' ? 'selected' : '' }}>Vệ Tinh</option>
+    <option value="home_vutru" {{ $celestialBody->type === 'home_vutru' ? 'selected' : '' }}>Home Vũ Trụ</option>
+</select>
+
                             @error('type')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -78,7 +81,7 @@
                         <!-- Mass -->
                         <div class="mb-4">
                             <label for="mass" class="block text-gray-700">Mass (kg)</label>
-                            <input type="number" name="mass" id="mass" value="{{ old('mass', $celestialBody->mass) }}"
+                            <input type="text" name="mass" id="mass" value="{{ old('mass', $celestialBody->mass) }}"
                                 class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @error('mass')
                                 <div class="text-danger">{{ $message }}</div>
@@ -88,7 +91,7 @@
                         <!-- Radius -->
                         <div class="mb-4">
                             <label for="radius" class="block text-gray-700">Radius (km)</label>
-                            <input type="number" name="radius" id="radius" value="{{ old('radius', $celestialBody->radius) }}"
+                            <input type="text" name="radius" id="radius" value="{{ old('radius', $celestialBody->radius) }}"
                                 class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @error('radius')
                                 <div class="text-danger">{{ $message }}</div>
@@ -98,7 +101,7 @@
                         <!-- Distance from Sun -->
                         <div class="mb-4">
                             <label for="distance_from_sun" class="block text-gray-700">Distance from Sun (million km)</label>
-                            <input type="number" name="distance_from_sun" id="distance_from_sun" value="{{ old('distance_from_sun', $celestialBody->distance_from_sun) }}"
+                            <input type="text" name="distance_from_sun" id="distance_from_sun" value="{{ old('distance_from_sun', $celestialBody->distance_from_sun) }}"
                                 class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @error('distance_from_sun')
                                 <div class="text-danger">{{ $message }}</div>
@@ -108,7 +111,7 @@
                         <!-- Orbital Period -->
                         <div class="mb-4">
                             <label for="orbital_period" class="block text-gray-700">Orbital Period (days)</label>
-                            <input type="number" name="orbital_period" id="orbital_period" value="{{ old('orbital_period', $celestialBody->orbital_period) }}"
+                            <input type="text" name="orbital_period" id="orbital_period" value="{{ old('orbital_period', $celestialBody->orbital_period) }}"
                                 class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @error('orbital_period')
                                 <div class="text-danger">{{ $message }}</div>
@@ -118,7 +121,7 @@
                         <!-- Discovery Year -->
                         <div class="mb-4">
                             <label for="discovery_year" class="block text-gray-700">Discovery Year</label>
-                            <input type="number" name="discovery_year" id="discovery_year" value="{{ old('discovery_year', $celestialBody->discovery_year) }}"
+                            <input type="text" name="discovery_year" id="discovery_year" value="{{ old('discovery_year', $celestialBody->discovery_year) }}"
                                 class="mt-1 block w-full border form-control border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                             @error('discovery_year')
                                 <div class="text-danger">{{ $message }}</div>

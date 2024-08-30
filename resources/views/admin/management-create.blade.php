@@ -115,7 +115,7 @@
                                 <!-- Mass Field -->
                                 <div class="form-group">
                                     <label for="mass">Khối lượng (Mass)</label>
-                                    <input type="number" id="mass" name="mass" class="form-control" step="any">
+                                    <input type="text" id="mass" name="mass" class="form-control" step="any">
                                     @error('mass')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -126,7 +126,7 @@
                                 <!-- Radius Field -->
                                 <div class="form-group">
                                     <label for="radius">Bán kính (Radius)</label>
-                                    <input type="number" id="radius" name="radius" class="form-control" step="any">
+                                    <input type="text" id="radius" name="radius" class="form-control" step="any">
                                     @error('radius')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -135,7 +135,7 @@
                                 <!-- Distance from Sun Field -->
                                 <div class="form-group">
                                     <label for="distance_from_sun">Khoảng cách từ Mặt Trời (Distance from Sun)</label>
-                                    <input type="number" id="distance_from_sun" name="distance_from_sun"
+                                    <input type="text" id="distance_from_sun" name="distance_from_sun"
                                         class="form-control" step="any">
                                     @error('distance_from_sun')
                                         <div class="text-danger">{{ $message }}</div>
@@ -145,7 +145,7 @@
                                 <!-- Orbital Period Field -->
                                 <div class="form-group">
                                     <label for="orbital_period">Chu kỳ quỹ đạo (Orbital Period)</label>
-                                    <input type="number" id="orbital_period" name="orbital_period" class="form-control"
+                                    <input type="text" id="orbital_period" name="orbital_period" class="form-control"
                                         step="any">
                                     @error('orbital_period')
                                         <div class="text-danger">{{ $message }}</div>
@@ -155,7 +155,7 @@
                                 <!-- Discovery Year Field -->
                                 <div class="form-group">
                                     <label for="discovery_year">Năm khám phá (Discovery Year)</label>
-                                    <input type="number" id="discovery_year" name="discovery_year" class="form-control"
+                                    <input type="text" id="discovery_year" name="discovery_year" class="form-control"
                                         min="1000" max="{{ date('Y') }}">
                                     @error('discovery_year')
                                         <div class="text-danger">{{ $message }}</div>
